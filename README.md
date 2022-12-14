@@ -4,70 +4,69 @@
 
 ## No meu código, simulo um calculo de IMC de seres humanos.
 
+```C
+int N = 500;
 
+struct m_struct{
+	double altura, peso;
+	double IMC;
+	int situacao;
+};
 
-	int N = 500;
+struct m_struct humano[N];
+double humanos_matriz[N][N];
+int i, j;
 
-	struct m_struct{
-		double altura, peso;
-		double IMC;
-		int situacao;
-	};
+// Inicialização
 
-	struct m_struct humano[N];
-	double humanos_matriz[N][N];
-	int i, j;
+for (i = 0 ; i < N ; i++){
+	humano[i].altura = randfrom(1.5, 2.0);
+	humano[i].peso = randfrom(50.0, 100.0);
+}
 
-	// Inicialização
+// Calcula IMC
 
-	for (i = 0 ; i < N ; i++){
-		humano[i].altura = randfrom(1.5, 2.0);
-		humano[i].peso = randfrom(50.0, 100.0);
+for (i = 0 ; i < N ; i++){
+	humano[i].IMC = humano[i].peso * (humano[i].altura * humano[i].altura);
+}
+
+// Recebe a situação do humano
+
+for (i = 0 ; i < N ; i++){
+	if (humano[i].IMC < 24.9){
+		humano[i].situacao = 0; //peso normal
 	}
-
-	// Calcula IMC
-
-	for (i = 0 ; i < N ; i++){
-		humano[i].IMC = humano[i].peso * (humano[i].altura * humano[i].altura);
+	else if (humano[i].IMC >= 25 && humano[i].IMC < 30){
+		humano[i].situacao = 1; //sobrepeso
 	}
-
-	// Recebe a situação do humano
-
-	for (i = 0 ; i < N ; i++){
-		if (humano[i].IMC < 24.9){
-			humano[i].situacao = 0; //peso normal
-		}
-		else if (humano[i].IMC >= 25 && humano[i].IMC < 30){
-			humano[i].situacao = 1; //sobrepeso
-		}
-		else if (humano[i].IMC >= 30.01 && humano[i].IMC < 35){
-			humano[i].situacao = 2; //obesidade 1
-		}
-		else{
-			humano[i].situacao = 3; //obesidade 2
-		}
+	else if (humano[i].IMC >= 30.01 && humano[i].IMC < 35){
+		humano[i].situacao = 2; //obesidade 1
 	}
+	else{
+		humano[i].situacao = 3; //obesidade 2
+	}
+}
 	
 
-	// Calcula a distância para a borda do sobrepeso
+// Calcula a distância para a borda do sobrepeso
 
-	for (int k = 0 ; k < N ; k++){
-		if (humano[k].IMC > 25){
-			for (i = 0 ; i < N ; i++){
-				for (j = 0 ; j < N ; j++){
-					humanos_matriz[i][j] = humano[k].IMC - 25; //quanto falta para sair do sobrepeso
-				}
-			}
-		}
-		else{
-			for (i = 0 ; i < N ; i++){
-				for (j = 0 ; j < N ; j++){
-					humanos_matriz[i][j] = humano[k].IMC - 25; //quanto falta para chegar no sobrepeso
-				}
+for (int k = 0 ; k < N ; k++){
+	if (humano[k].IMC > 25){
+		for (i = 0 ; i < N ; i++){
+			for (j = 0 ; j < N ; j++){
+				humanos_matriz[i][j] = humano[k].IMC - 25; //quanto falta para sair do sobrepeso
 			}
 		}
 	}
-
+	else{
+		for (i = 0 ; i < N ; i++){
+			for (j = 0 ; j < N ; j++){
+				humanos_matriz[i][j] = humano[k].IMC - 25; //quanto falta para chegar no sobrepeso
+			}
+		}
+	}
+}
+```
 
 ## Resultados
 
